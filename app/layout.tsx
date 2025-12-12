@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import Header from "@/components/header/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Pocket Plan",
@@ -14,8 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
