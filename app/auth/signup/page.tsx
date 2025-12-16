@@ -11,7 +11,7 @@ export default async function Signup() {
       </section>
 
       <section>
-        {/* Register Form */}
+        {/* Signup Form */}
         <SignupForm />
       </section>
     </div>
