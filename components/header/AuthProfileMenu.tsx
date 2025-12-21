@@ -1,4 +1,5 @@
 import { firebaseApp } from "@/lib/firebase/firebase-app";
+import { signoutSession } from "@/lib/firebase/signout-session";
 import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
@@ -9,13 +10,16 @@ export default function AuthProfileMenu() {
         const fireApp = firebaseApp;
         const firebaseAuth = getAuth(fireApp);
 
-        signOut(firebaseAuth)
-        .then(() => {
-            router.push("/auth/signin");
-        })
-        .catch((error) => {
-            throw new Error("Failed to sign out the user. Error: " + error.message);
-        });
+        const result = await signoutSession();
+        if(result.success) {
+            signOut(firebaseAuth)
+            .then(() => {
+                router.push("/auth/signin");
+            })
+            .catch((error) => {
+                throw new Error("Failed to sign out the user. Error: " + error.message);
+            });
+        }
     }
 
     return (

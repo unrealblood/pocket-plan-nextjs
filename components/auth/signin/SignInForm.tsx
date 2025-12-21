@@ -1,9 +1,11 @@
 "use client";
 
+import { createSession } from "@/lib/firebase/create-session";
 import { firebaseApp } from "@/lib/firebase/firebase-app";
 import { ReactionMessageTypeEnum } from "@/lib/typescript/auth";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
 
 export default function SignInForm() {
@@ -12,6 +14,8 @@ export default function SignInForm() {
     const firebaseAuth = getAuth(fireApp);
     
     const [isPending, startTransition] = useTransition();
+
+    const router = useRouter();
 
     //local state
     const [email, setEmail] = useState<string>("");
@@ -36,14 +40,15 @@ export default function SignInForm() {
 
         startTransition(async () => {
             signInWithEmailAndPassword(firebaseAuth, email, password)
-            .then((credential) => {
+            .then(async (credential) => {
                 const user = credential.user;
-                const token = user.getIdToken();
-                
-                console.log("USER_ID");
-                console.log(user.uid);
+                const token = await user.getIdToken();
 
-                setReactionMessage("Successfully signed in the user.");
+                const result = await createSession(token);
+                
+                if(result.success) {
+                    router.push("/");
+                }
             })
             .catch((error) => {
                 setReactionMessage("Failed to signin user. Error: " + error.message);
