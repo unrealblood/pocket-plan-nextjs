@@ -5,9 +5,13 @@ import { ReactionMessageTypeEnum } from "@/lib/typescript/auth";
 import Link from "next/link";
 import { FormEvent, useState, useTransition } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { createSession } from "@/lib/firebase/create-session";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
     const [isPending, startTransition] = useTransition();
+
+    const router = useRouter();
 
     //firebase
     const fireApp = firebaseApp;
@@ -58,9 +62,13 @@ export default function SignupForm() {
             .then((credential) => {
                 const user = credential.user;
                 
-                console.log(user);
-                setReactionMessage("Successfully signed up the user. You can now signin.");
-                setReactionMessageType(ReactionMessageTypeEnum.Success);
+                if(user) {
+                    setReactionMessage("Successfully signed up the user. You can now signin.");
+                    setReactionMessageType(ReactionMessageTypeEnum.Success);
+                }
+                else {
+                    throw new Error("Failed to signup the user.");
+                }
             })
             .catch((error) => {
                 setReactionMessage("Failed to signup the user. Error: " + error.message);
@@ -73,14 +81,19 @@ export default function SignupForm() {
         const provider = new GoogleAuthProvider();
 
         signInWithPopup(firebaseAuth, provider)
-        .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            const user = result.user;
+        .then(async (result) => {
+            const token = await result.user.getIdToken();
 
-            console.log(user.uid);
-            setReactionMessage("Successfully signed in with google account.");
-            setReactionMessageType(ReactionMessageTypeEnum.Success);
+            if(token) {
+                const result = await createSession(token);
+
+                if(result.success) {
+                    router.push("/");
+                }
+                else {
+                    throw new Error("Failed to signin the user with Google account.");
+                }
+            }
         })
         .catch((error) => {
             setReactionMessage("Failed to signin with google account. Error: " + error.message);

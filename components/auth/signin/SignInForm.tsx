@@ -61,13 +61,19 @@ export default function SignInForm() {
         const provider = new GoogleAuthProvider();
 
         signInWithPopup(firebaseAuth, provider)
-        .then((result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = result.user.getIdToken();
-            const user = result.user;
+        .then(async (result) => {
+            const token = await result.user.getIdToken();
 
-            console.log("USER_ID");
-            console.log(user.uid);
+            if(token) {
+                const result = await createSession(token);
+
+                if(result.success) {
+                    router.push("/");
+                }
+                else {
+                    throw new Error("Failed to signin the user with Google account.");
+                }
+            }
         })
         .catch((error) => {
             setReactionMessage("Failed to signin the user. Error: " + error.message);
