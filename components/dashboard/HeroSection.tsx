@@ -1,15 +1,18 @@
-export default async function HeroSection() {
+import { getTotalExpense } from "@/lib/plan/util";
+import { PlanType } from "@/lib/typescript/plan";
+
+export default async function HeroSection({plan} : {plan: PlanType}) {
     const cards = [{
         title: "Your Income",
-        content: 20000
+        content: plan?.income ?? 0
     },
     {
         title: "Total Expenses",
-        content: 14000
+        content: getTotalExpense(plan!)
     },
     {
         title: "Miscellaneous",
-        content: 4500
+        content: plan?.misc ?? 0
     }
     ];
 
@@ -19,8 +22,8 @@ export default async function HeroSection() {
 
             <div className="mt-8 flex justify-center items-center gap-6">
                 {cards.map((card, index) => (
-                    <div>
-                        <div key={index} className={`w-[380px] p-8 rounded-xl shadow-xl ring-1 ring-black/5 border-b-4 ${(card.title === "Total Expenses") || (card.title === "Miscellaneous") ? "border-red-500" : "border-teal-500"}`}>
+                    <div key={index}>
+                        <div className={`w-[380px] p-8 rounded-xl shadow-xl ring-1 ring-black/5 border-b-4 ${(card.title === "Total Expenses") || (card.title === "Miscellaneous") ? "border-red-500" : "border-teal-500"}`}>
 
                             <div className="text-gray-500 text-lg">
                                 {card.title}
