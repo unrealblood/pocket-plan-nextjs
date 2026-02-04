@@ -82,21 +82,21 @@ export default function SignInForm() {
     }
 
     return (
-        <form className="mt-4 w-[550px] mx-auto" onSubmit={handleSignInSubmit}>
-            <fieldset className="border border-black px-8 py-2 rounded-xl">
+        <form className="mt-4 sm:w-[550px] w-[320px] mx-auto" onSubmit={handleSignInSubmit}>
+            <fieldset className="border border-black sm:px-8 px-2 py-2 rounded-xl">
                 <legend>SignIn Form</legend>
                 
                 <div className="flex justify-center items-center flex-col">
                     <div className="mt-4">
                         <label htmlFor="emailInput" className="font-bold">Email Address</label><br />
 
-                        <input type="email" id="emailInput" className="w-80 bg-gray-200 p-2 rounded-full mt-2" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" id="emailInput" className="sm:w-80 w-[250px] bg-gray-200 p-2 rounded-full mt-2" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
 
                     <div className="mt-4">
                         <label htmlFor="passwordInput" className="font-bold">Password</label><br />
 
-                        <input type="password" id="passwordInput" className="w-80 bg-gray-200 p-2 rounded-full mt-2" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" id="passwordInput" className="sm:w-80 w-[250px] bg-gray-200 p-2 rounded-full mt-2" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                 </div>
 
@@ -108,11 +108,11 @@ export default function SignInForm() {
                 }
 
                 <div className="flex justify-center items-center mt-4 mb-4">
-                    <button type="submit" disabled={isPending} className="w-80 cursor-pointer bg-green-500 px-4 py-2 rounded-full text-white">SignIn</button>
+                    <button type="submit" disabled={isPending} className="sm:w-80 w-[250px] cursor-pointer bg-green-500 px-4 py-2 rounded-full text-white">SignIn</button>
                 </div>
 
                 <div className="flex justify-center items-center mt-4 mb-2">
-                    <button type="button" className="w-80 cursor-pointer bg-blue-500 py-2 rounded-full text-white" onClick={hanldeLoginWithGoogleAccountClick}>SignIn with Google Account</button>
+                    <button type="button" className="sm:w-80 w-[250px] cursor-pointer bg-blue-500 py-2 rounded-full text-white" onClick={hanldeLoginWithGoogleAccountClick}>SignIn with Google Account</button>
                 </div>
 
                 <div className="flex justify-center items-center mt-4 mb-2">
