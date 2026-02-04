@@ -27,11 +27,11 @@ export default async function Dashboard() {
     }
 
     return (
-        <div className="flex-1 overflow-auto w-[1200px] mx-auto">
+        <div className="flex-1 overflow-auto sm:w-[1200px] w-[320px] mx-auto">
             <HeroSection plan={plan!} />
 
             <section className="mt-12">
-                <div className="flex justify-between items-start">
+                <div className="flex sm:flex-row flex-col sm:justify-between justify-center sm:items-start items-center sm:gap-0 gap-4">
                     <PocketAnalyticsCard plan={plan!} />
                     <PocketGraphsCard plan={plan!} />
                 </div>

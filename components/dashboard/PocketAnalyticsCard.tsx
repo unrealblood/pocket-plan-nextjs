@@ -6,7 +6,7 @@ export default async function PocketAnalyticsCard({plan} : {plan: PlanType}) {
     const savingsPotential = plan.income - getTotalExpense(plan);
 
     return (
-        <div className="w-[400px] p-4 rounded-xl shadow-xl ring-1 ring-black/5">
+        <div className="sm:w-[400px] w-[300px] p-4 rounded-xl shadow-xl ring-1 ring-black/5">
             <div className="font-bold text-2xl">Pocket Analytics</div>
 
             <div className="mt-4">

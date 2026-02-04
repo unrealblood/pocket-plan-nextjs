@@ -7,7 +7,7 @@ export default async function PocketGraphsCard({plan} : {plan: PlanType}) {
     const { pieData, barData } = convertPlanToChartData(plan);
 
     return (
-        <div className="w-[750px] p-4 rounded-xl ">
+        <div className="sm:w-[750px] w-[320px] p-4 rounded-xl ">
             <section className="shadow-xl ring-1 ring-black/5 p-4 rounded-xl">
                 <div className="text-3xl font-bold">
                     Pocket Pie Chart

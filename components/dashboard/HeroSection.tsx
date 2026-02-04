@@ -18,12 +18,12 @@ export default async function HeroSection({plan} : {plan: PlanType}) {
 
     return (
         <section className="mt-4">
-            <div className="text-3xl font-bold">Your Financial Dashboard</div>
+            <div className="sm:text-3xl text-2xl sm:text-left text-center font-bold">Your Financial Dashboard</div>
 
-            <div className="mt-8 flex justify-center items-center gap-6">
+            <div className="mt-8 flex sm:flex-row flex-col justify-center items-center gap-6">
                 {cards.map((card, index) => (
                     <div key={index}>
-                        <div className={`w-[380px] p-8 rounded-xl shadow-xl ring-1 ring-black/5 border-b-4 ${(card.title === "Total Expenses") || (card.title === "Miscellaneous") ? "border-red-500" : "border-teal-500"}`}>
+                        <div className={`sm:w-[380px] w-[300px] p-8 rounded-xl shadow-xl ring-1 ring-black/5 border-b-4 ${(card.title === "Total Expenses") || (card.title === "Miscellaneous") ? "border-red-500" : "border-teal-500"}`}>
 
                             <div className="text-gray-500 text-lg">
                                 {card.title}
